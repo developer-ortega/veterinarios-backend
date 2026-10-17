@@ -1,0 +1,23 @@
+{
+  "name": "apv-backend",
+  "version": "1.0.0",
+  "description": "Aprendiendo JS FullStack",
+  "homepage": "https://github.com/developer-ortega/veterinarios-backend#readme",
+  "bugs": {
+    "url": "https://github.com/developer-ortega/veterinarios-backend/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/developer-ortega/veterinarios-backend.git"
+  },
+  "license": "ISC",
+  "author": "developer-ortega",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "express": "^5.3.0"
+  }
+}
