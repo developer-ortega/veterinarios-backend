@@ -1,11 +1,15 @@
 import express from "express";
+import conectarDB from "./config/db.js";
 
 const app = express();
+const PORT = process.env.PORT || 4000;
+
+conectarDB();
 
 app.use('/', (req, res) => {
     res.send('Hola mundo');
 });
 
-app.listen(4000, () => {
-    console.log('Funcionando en el puerto 4000');
+app.listen(PORT, () => {
+    console.log(`Funcionando en el puerto ${PORT}`);
 });
