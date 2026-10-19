@@ -107,6 +107,23 @@ const comprobarToken = async (req, res) => {
 
 const nuevoPassword = async (req, res) => {
 
+    const { token } = req.params;
+    const { password } = req.body;
+
+    const veterinario = await Veterinario.findOne({ token })
+    if(!veterinario){
+        const error = new Error("Token no encontrado")
+        return res.status(404).json({ msg: error.message });
+    }
+    try {
+        veterinario.token = null
+        veterinario.password = password;
+        await veterinario.save();
+        res.json({ msg: "Password Cambiado Correctamente"});
+    } catch (error) {
+        const e = new Error("Hubo un error al procesar la solicitud");
+        return res.status(500).json({ msg: e.message });
+    }
 }
 
 
