@@ -1,14 +1,32 @@
+import jwt from 'jsonwebtoken';
+import Veterinario from '../models/Veterinario.js';
 
+const checkAuth = async (req, res, next) => {
+    let token;
 
-const checkAuth = (req, res, next) => {
-    
-    if(req.headers.authorization && req.headers.authorization.startsWith('Bearer')){
-        console.log('Hola');
-        return next();
+    if (req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {
+        try {
+            token = req.headers.authorization.split(' ')[1];
+            const decoded = jwt.verify(token, process.env.JWT_SECRET);
+            req.veterinario = await Veterinario.findById(decoded.id).select(
+                "-password -token -confirmado"
+            );
+
+            if(!req.veterinario){
+                const e = new Error("Usuario no encontrado");
+                return res.status(404).json({ msg: e.message });
+            }
+            return next();
+        } catch (error) {
+            const e = new Error("Token no válido o inexistente")
+            return res.status(403).json({ msg: e.message });
+        }
     }
 
-    const error = new Error("Token no válido o inexistente")
-    res.status(403).json({ msg: error.message });
+    if (!token) {
+        const error = new Error("Token no válido o inexistente")
+        res.status(403).json({ msg: error.message });
+    }
 }
 
 export default checkAuth;
