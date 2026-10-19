@@ -46,7 +46,7 @@ const confirmar = async (req, res) => {
 
 const autenticar = async (req, res) => {
 
-    const { email } = req.body
+    const { email, password } = req.body
 
     // Comprobar si el usuario existe
     const usuario = await Veterinario.findOne({ email })
@@ -65,8 +65,17 @@ const autenticar = async (req, res) => {
         return res.status(404).json({ msg: error.message })
     }
 
-    // Autenticar el usuario
+    // Revisar el password
+    if( await usuario.comprobarPassword(password)){
+        // Autenticar
+        
+    } else {
+        const error = new Error("Password incorrecto")
+        return res.status(404).json({ msg: error.message })
+    }
 }
+
+
 
 export {
     perfil, registrar, confirmar, autenticar
