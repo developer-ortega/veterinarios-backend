@@ -1,7 +1,7 @@
 {
   "name": "apv-backend",
   "version": "1.0.0",
-  "description": "Aprendiendo JS FullStack",
+  "description": "API REST para administrar pacientes de una veterinaria (Node.js + Express + MongoDB) - curso FullStack de Udemy",
   "homepage": "https://github.com/developer-ortega/veterinarios-backend#readme",
   "bugs": {
     "url": "https://github.com/developer-ortega/veterinarios-backend/issues"
